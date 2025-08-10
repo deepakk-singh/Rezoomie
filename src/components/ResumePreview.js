@@ -1,54 +1,67 @@
-// ResumePreview.js
 import React from "react";
 import ClassicTemplate from "./templates/ClassicTemplate";
 import ModernTemplate from "./templates/ModernTemplate";
 import MinimalTemplate from "./templates/MinimalTemplate";
 
 /**
- * Prepares sections (injects summary, groups skills)
- * and renders the selected template.
+ * ResumePreview – Formats sections and renders the selected resume template
  */
 export default function ResumePreview({ sections, theme, personalInfo }) {
-  // 1) Insert professional summary before education
-  const insertProfessionalSummary = (list) => {
-    if (!personalInfo.professionalSummary) return list;
+  // Inject professional summary before the Education section
+  const injectProfessionalSummary = (list) => {
+    if (!personalInfo.professionalSummary?.trim()) return list;
+
     const summarySection = {
       id: "professionalSummary",
       title: "Professional Summary",
       entries: [{ summary: personalInfo.professionalSummary }],
     };
-    const idx = list.findIndex((s) => s.id === "education");
-    if (idx >= 0) {
-      return [...list.slice(0, idx), summarySection, ...list.slice(idx)];
+
+    const educationIndex = list.findIndex((s) => s.id === "education");
+    if (educationIndex >= 0) {
+      return [
+        ...list.slice(0, educationIndex),
+        summarySection,
+        ...list.slice(educationIndex),
+      ];
     }
     return [summarySection, ...list];
   };
 
-  // 2) Group skills: convert many entries into category -> string skills
-  const formatSkills = (list) =>
-    list.map((sec) => {
-      if (sec.id !== "skills") return sec;
-      const grouped = {};
-      (sec.entries || []).forEach((e) => {
-        const cat = e.category || "Other";
-        const val = (e.value || "").trim();
-        if (!val) return;
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push(val);
+  // Group skills by category and flatten to {category, skills}
+  const normalizeSkills = (list) =>
+    list.map((section) => {
+      if (section.id !== "skills") return section;
+
+      const groupedSkills = {};
+      (section.entries || []).forEach((entry) => {
+        const category = entry.category?.trim() || "Other";
+        const value = entry.value?.trim();
+        if (!value) return;
+        if (!groupedSkills[category]) groupedSkills[category] = [];
+        groupedSkills[category].push(value);
       });
-      // turn into entries: [{category, skills}]
-      const entries = Object.entries(grouped).map(([category, arr]) => ({
+
+      const entries = Object.entries(groupedSkills).map(([category, skills]) => ({
         category,
-        skills: arr.join(", "),
+        skills: skills.join(", "),
       }));
-      return { ...sec, entries };
+
+      return { ...section, entries };
     });
 
-  const processed = formatSkills(insertProfessionalSummary(sections));
+  // Processed Sections
+  const processedSections = normalizeSkills(injectProfessionalSummary(sections));
 
-  const props = { personalInfo, sections: processed };
-  const map = { classic: ClassicTemplate, modern: ModernTemplate, minimal: MinimalTemplate };
-  const Selected = map[theme] || ClassicTemplate;
+  // Template Map
+  const templates = {
+    classic: ClassicTemplate,
+    modern: ModernTemplate,
+    minimal: MinimalTemplate,
+  };
+
+  // Fallback to classic template
+  const SelectedTemplate = templates[theme] || ClassicTemplate;
 
   return (
     <div
@@ -58,9 +71,12 @@ export default function ResumePreview({ sections, theme, personalInfo }) {
         padding: 18,
         borderRadius: 8,
         background: "#fff",
+        fontSize: "12px",
+        lineHeight: 1.5,
+        overflowWrap: "break-word",
       }}
     >
-      <Selected {...props} />
+      <SelectedTemplate personalInfo={personalInfo} sections={processedSections} />
     </div>
   );
 }

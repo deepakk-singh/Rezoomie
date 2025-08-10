@@ -10,8 +10,14 @@ export default function EditableSection({ section, onChange }) {
 
   const addEntry = () => {
     const newEntry = {};
-    for (let key in section.entries[0]) {
-      newEntry[key] = "";
+    const firstEntry = section.entries[0];
+    if (firstEntry) {
+      for (let key in firstEntry) {
+        newEntry[key] = "";
+      }
+    } else {
+      // Fallback if section.entries is empty
+      newEntry["field1"] = "";
     }
     onChange(section.id, [...section.entries, newEntry]);
   };
@@ -22,32 +28,78 @@ export default function EditableSection({ section, onChange }) {
   };
 
   return (
-    <div style={{ padding: "1rem", background: "#fff", borderRadius: "6px" }}>
-      <h3>{section.title}</h3>
+    <div
+      style={{
+        padding: "1rem",
+        background: "#fff",
+        borderRadius: "8px",
+        marginBottom: "2rem",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+      }}
+    >
+      <h3 style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>{section.title}</h3>
+
       {section.entries.map((entry, i) => (
-        <div key={i} style={{ marginBottom: "1rem", border: "1px solid #ddd", padding: "0.5rem" }}>
+        <div
+          key={i}
+          style={{
+            marginBottom: "1.5rem",
+            border: "1px solid #ddd",
+            padding: "1rem",
+            borderRadius: "6px",
+            backgroundColor: "#f9fafb",
+          }}
+        >
           {Object.keys(entry).map((field) => (
             <input
               key={field}
               type="text"
-              placeholder={field}
+              placeholder={field.replace(/_/g, " ")}
               value={entry[field]}
               onChange={(e) => handleInputChange(i, field, e.target.value)}
               style={{
                 display: "block",
-                marginBottom: "0.5rem",
+                marginBottom: "0.75rem",
                 width: "100%",
-                padding: "0.5rem",
+                padding: "0.6rem 0.75rem",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                fontSize: "0.95rem",
               }}
             />
           ))}
-          <button onClick={() => removeEntry(i)} style={{ background: "red", color: "white", padding: "0.25rem 0.5rem" }}>
-            Remove
+
+          <button
+            onClick={() => removeEntry(i)}
+            style={{
+              backgroundColor: "#ef4444",
+              color: "#fff",
+              padding: "0.4rem 0.75rem",
+              fontSize: "0.875rem",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              marginTop: "0.5rem",
+            }}
+          >
+            🗑 Remove
           </button>
         </div>
       ))}
-      <button onClick={addEntry} style={{ background: "green", color: "white", padding: "0.5rem 1rem" }}>
-        + Add {section.title}
+
+      <button
+        onClick={addEntry}
+        style={{
+          backgroundColor: "#10b981",
+          color: "#fff",
+          padding: "0.6rem 1rem",
+          fontSize: "0.9rem",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ➕ Add {section.title}
       </button>
     </div>
   );
