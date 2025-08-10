@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Rezoomie – Resume Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Preview live](https://rezoomie.vercel.app/)
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Overview](#overview)  
+- [Features](#features)  
+- [Demo](#demo)  
+- [Tech Stack](#tech-stack)  
+- [Setup & Installation](#setup--installation)  
+- [Project Structure](#project-structure)  
+- [Usage](#usage)  
+- [Customization](#customization)  
+- [Contributing](#contributing)  
+- [License](#license)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Overview
 
-### `npm test`
+Rezoomie is a web-based resume builder that enables you to **create professional resumes quickly and easily**.  
+Start at a clean landing page, fill in your details section-by-section, preview live across multiple themes (Classic, Modern, Minimal), and export your resume as a high-quality PDF.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Landing page** with highlights and call-to-action  
+- **Separated, editable resume sections**: Personal Info, Summary, Skills, Projects, Experience, Certifications  
+- **Drag-and-drop ordering** of resume sections  
+- **Live preview** with theme switching (Classic / Modern / Minimal)  
+- **Download as PDF** with proper formatting and margins  
+- **Persistent storage** — all inputs auto-save to `localStorage`  
+- **Responsive design** — works on mobile, tablet, and desktop  
+- **Reset option** to clear all data and start fresh  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Demo
 
-### `npm run eject`
+Visit the live app here: [https://rezoomie.vercel.app/](https://rezoomie.vercel.app/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Tech Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Purpose         | Technology           |
+|-----------------|----------------------|
+| Frontend        | React                |
+| Routing         | React Router         |
+| Drag & Drop     | @dnd-kit             |
+| PDF Export      | html2canvas + jsPDF  |
+| Styling         | CSS (modular files)  |
+| Deployment      | Vercel               |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Setup & Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Clone the project**
+   ```bash
+   git clone <your-repo-url>
+   cd rezoomie
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Install dependencies**
+   ```bash
+   npm install
 
-### Code Splitting
+3. **Run Locally**
+   ```bash
+   npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. **Build for production**
+   ```bash
+   npm run build
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Usage
 
-### Making a Progressive Web App
+- Navigate to the landing page (/) — click Create My Resume.
+- Fill in your personal information and professional summary.
+- Edit or rearrange resume sections — add new ones or remove as needed.
+- Toggle between Classic, Modern, and Minimal themes from the top-right selector.
+- Click Download PDF to export your resume.
+- Use Reset to clear all entries and start over.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## License
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
